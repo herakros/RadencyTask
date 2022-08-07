@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Radency.Contracts.DTO;
 using Radency.Contracts.Services;
 
 namespace Radency.WEB.Controllers
@@ -16,53 +17,60 @@ namespace Radency.WEB.Controllers
 
         [HttpGet]
         [Route("books")] // Get all books. Order by provided value (title or author)
-        public async Task<IActionResult> GetAllBooks()
+        public async Task<IActionResult> GetAllBooks([FromQuery] string order)
         {
-            return Ok();
+            var result = await _bookService.GetAllBooks(order);
+            return Ok(result);
         }
 
         [HttpGet]
         [Route("recommended")] // Get top 10 books with high rating and number of reviews greater than 10.
                                // You can filter books by specifying genre. Order by rating
-        public async Task<IActionResult> GetRecommended()
+        public async Task<IActionResult> GetRecommendedBooks([FromQuery] string genre)
         {
+
             return Ok();
         }
 
         [HttpGet]
         [Route("books/{id}")] // Get book details with the list of reviews
 
-        public async Task<IActionResult> AddBook()
+        public async Task<IActionResult> GetBookById(int id)
         {
-            return Ok();
+            var result = await _bookService.GetBookByIdAsync(id);
+            return Ok(result);
         }
 
         [HttpDelete]
         [Route("books/{id}")] // Delete a book using a secret key. Save the secret key in the config of your application.
                               // Compare this key with query param
-        public async Task<IActionResult> DeleteBookd()
+        public async Task<IActionResult> DeleteBook(int id)
         {
+            await _bookService.DeleteBookAsync(id);
             return Ok();
         }
 
         [HttpPost]
         [Route("books/save")]
-        public async Task<IActionResult> SaveBook()
+        public async Task<IActionResult> CreateOrUpdateBook([FromBody] CreateOrUpdateBookDTO model)
         {
-            return Ok();
+            var result = await _bookService.CreateOrUpdateBookAsync(model);
+            return Ok(result);
         }
 
         [HttpPut]
         [Route("books/{id}/review")]
-        public async Task<IActionResult> SaveBookReview()
+        public async Task<IActionResult> SaveBookReview(int id, [FromBody] AddReviewDTO model)
         {
-            return Ok();
+            var result = await _bookService.AddBookReview(id, model);
+            return Ok(result);
         }
 
         [HttpPut]
         [Route("books/{id}/rate")]
-        public async Task<IActionResult> ChangeBookRate()
+        public async Task<IActionResult> ChangeBookRate(int id, [FromBody] AddRaitingDTO model)
         {
+            await _bookService.AddBookRate(id, model);
             return Ok();
         }
     }

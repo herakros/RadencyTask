@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Ardalis.Specification;
+using Ardalis.Specification.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Radency.Contracts.Data;
 
 namespace Radency.Infrastructure.Data.Repositories
@@ -36,6 +38,28 @@ namespace Radency.Infrastructure.Data.Repositories
         public async Task UpdateAsync(TEntity entity)
         {
             await Task.Run(() => _dbContext.Entry(entity).State = EntityState.Modified);
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<TEntity>> GetListBySpecAsync(ISpecification<TEntity> specification)
+        {
+            return await ApplySpecification(specification).ToListAsync();
+        }
+
+        public async Task<TEntity> GetFirstBySpecAsync(ISpecification<TEntity> specification)
+        {
+            var res = await ApplySpecification(specification).FirstOrDefaultAsync();
+            return res;
+        }
+
+        private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specification)
+        {
+            var evaluator = new SpecificationEvaluator();
+            return evaluator.GetQuery(_dbSet, specification);
         }
     }
 }

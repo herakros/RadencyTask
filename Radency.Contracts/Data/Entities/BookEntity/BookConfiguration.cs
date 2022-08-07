@@ -27,7 +27,7 @@ namespace Radency.Contracts.Data.Entities.BookEntity
                 .IsRequired();
 
             builder
-                .Property(x => x.Genve)
+                .Property(x => x.Genre)
                 .IsRequired();
 
         }

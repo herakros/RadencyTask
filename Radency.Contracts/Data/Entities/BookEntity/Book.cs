@@ -15,10 +15,10 @@ namespace Radency.Contracts.Data.Entities.BookEntity
 
         public string Author { get; set; }
 
-        public string Genve { get; set; }
-
-        public ICollection<Review> Reviews { get; set; }
+        public string Genre { get; set; }
 
         public ICollection<Raiting> Raitings { get; set; }
+
+        public ICollection<Review> Reviews { get; set; }
     }
 }

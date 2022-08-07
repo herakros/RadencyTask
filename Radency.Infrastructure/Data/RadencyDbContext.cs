@@ -18,18 +18,15 @@ namespace Radency.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new BookConfiguration());
-            modelBuilder.ApplyConfiguration(new ReviewConfiguration());
             modelBuilder.ApplyConfiguration(new RaitingConfiguration());
+            modelBuilder.ApplyConfiguration(new ReviewConfiguration());
 
-            modelBuilder.Entity<Book>().ToTable("Books");
-            modelBuilder.Entity<Review>().ToTable("Review");
-            modelBuilder.Entity<Raiting>().ToTable("Raiting");
         }
 
         public DbSet<Book> Books { get; set; }
 
-        public DbSet<Review> Reviews { get; set; }
-
         public DbSet<Raiting> Raitings { get; set; }
+
+        public DbSet<Review> Reviews { get; set; }
     }
 }

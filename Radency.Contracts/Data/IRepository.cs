@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using Ardalis.Specification;
+using System.Linq.Expressions;
 
 namespace Radency.Contracts.Data
 {
@@ -13,5 +14,11 @@ namespace Radency.Contracts.Data
         Task UpdateAsync(TEntity entity);
 
         Task DeleteAsync(TEntity entity);
+
+        Task<int> SaveChangesAsync();
+
+        Task<IEnumerable<TEntity>> GetListBySpecAsync(ISpecification<TEntity> specification);
+
+        Task<TEntity> GetFirstBySpecAsync(ISpecification<TEntity> specification);
     }
 }

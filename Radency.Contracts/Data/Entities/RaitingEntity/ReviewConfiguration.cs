@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Radency.Contracts.Data.Entities.ReviewEntity
+namespace Radency.Contracts.Data.Entities.RaitingEntity
 {
     public class ReviewConfiguration : IEntityTypeConfiguration<Review>
     {
@@ -11,7 +11,11 @@ namespace Radency.Contracts.Data.Entities.ReviewEntity
                 .HasKey(x => x.Id);
 
             builder
-                .Property(x => x.Score)
+                .Property(x => x.Message)
+                .IsRequired();
+
+            builder
+                .Property(x => x.Reviewer)
                 .IsRequired();
 
             builder
