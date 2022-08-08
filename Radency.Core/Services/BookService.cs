@@ -7,6 +7,8 @@ using Radency.Contracts.Data.Entities.ReviewEntity;
 using Radency.Contracts.DTO;
 using Radency.Contracts.Queries;
 using Radency.Contracts.Services;
+using Radency.Core.Exeptions;
+using System.Net;
 
 namespace Radency.Core.Services
 {
@@ -35,38 +37,42 @@ namespace Radency.Core.Services
         {
             var book = await _bookRepository.GetByKeyAsync(id);
 
-            if(book != null)
+            if(book == null)
             {
-                var raiting = new Raiting()
-                {
-                    BookId = id,
-                    Book = book
-                };
-
-                raiting.Score = model.Score;
-
-                await _raitingRepository.AddAsync(raiting);
-                await _raitingRepository.SaveChangesAsync();
+                throw new HttpException(HttpStatusCode.NotFound, "Don't found book");
             }
+
+            var raiting = new Raiting()
+            {
+                BookId = id,
+                Book = book
+            };
+
+            raiting.Score = model.Score;
+
+            await _raitingRepository.AddAsync(raiting);
+            await _raitingRepository.SaveChangesAsync();
         }
 
         public async Task<int> AddBookReview(int id, AddReviewDTO model)
         {
             var book = await _bookRepository.GetByKeyAsync(id);
 
-            if(book != null)
+            if(book == null)
             {
-                var review = new Review()
-                {
-                    BookId = id,
-                    Book = book
-                };
-
-                _mapper.Map(model, review);
-
-                await _reviewRepository.AddAsync(review);
-                await _reviewRepository.SaveChangesAsync();
+                throw new HttpException(HttpStatusCode.NotFound, "Don't found book");
             }
+
+            var review = new Review()
+            {
+                BookId = id,
+                Book = book
+            };
+
+            _mapper.Map(model, review);
+
+            await _reviewRepository.AddAsync(review);
+            await _reviewRepository.SaveChangesAsync();
 
             return id;
         }
@@ -107,15 +113,20 @@ namespace Radency.Core.Services
 
                 if (book != null)
                 {
-                    await _bookRepository.DeleteAsync(book);
-                    await _bookRepository.SaveChangesAsync();
+                    throw new HttpException(HttpStatusCode.NotFound, "Don't found book");
                 }
+
+                await _bookRepository.DeleteAsync(book);
+                await _bookRepository.SaveChangesAsync();
+            }
+            else
+            {
+                throw new HttpException(HttpStatusCode.Forbidden, "You don't have permission");
             }
         }
 
         public async Task<IEnumerable<OrderBookDTO>> GetAllBooks(QueryOrderBooks query)
         {
-
             if (query.Order == "title")
             {
                 var specification = new Books.BookListOrderByTitle();
@@ -147,16 +158,16 @@ namespace Radency.Core.Services
             var specification = new Books.BookReviews(id);
             var book = await _bookRepository.GetFirstBySpecAsync(specification);
 
-            if(book != null)
+            if (book == null)
             {
-                var bookDTO = new BookDTO();
-
-                _mapper.Map(book, bookDTO);
-
-                return bookDTO;
+                throw new HttpException(HttpStatusCode.NotFound, "Don't found book");
             }
 
-            return new BookDTO();
+            var bookDTO = new BookDTO();
+
+            _mapper.Map(book, bookDTO);
+
+            return bookDTO;
         }
 
         public async Task<IEnumerable<OrderBookDTO>> GetRecommendedBooks(QueryBookGenre query)
