@@ -15,13 +15,25 @@ namespace Radency.Contracts.Data.Entities.BookEntity
             }
         }
 
-        public class BookList : Specification<Book>
+        public class BookListOrderByTitle : Specification<Book>
         {
-            public BookList()
+            public BookListOrderByTitle()
             {
                 Query
                     .Include(x => x.Reviews)
-                    .Include(x => x.Raitings);
+                    .Include(x => x.Raitings)
+                    .OrderBy(x => x.Title);
+            }
+        }
+
+        public class BookListOrderByAuthor : Specification<Book>
+        {
+            public BookListOrderByAuthor()
+            {
+                Query
+                    .Include(x => x.Reviews)
+                    .Include(x => x.Raitings)
+                    .OrderBy(x => x.Author);
             }
         }
 
@@ -31,7 +43,9 @@ namespace Radency.Contracts.Data.Entities.BookEntity
             {
                 Query
                     .Include(x => x.Reviews)
-                    .Include(x => x.Raitings);
+                    .Include(x => x.Raitings)
+                    .Take(10)
+                    .Where(x => x.Reviews.Count > 10);
             }
         }
     }

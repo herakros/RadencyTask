@@ -115,28 +115,31 @@ namespace Radency.Core.Services
 
         public async Task<IEnumerable<OrderBookDTO>> GetAllBooks(QueryOrderBooks query)
         {
-            var specification = new Books.BookList();
-            var books = await _bookRepository.GetListBySpecAsync(specification);
 
-            var orderBooks = new List<OrderBookDTO>();
-
-            _mapper.Map(books, orderBooks);
-
-            return OrderBooks(orderBooks, query.Order);
-        }
-
-        private IEnumerable<OrderBookDTO> OrderBooks(IEnumerable<OrderBookDTO> books, string order)
-        {
-            if(order == "title")
+            if (query.Order == "title")
             {
-                return books.OrderBy(x => x.Title);
-            }
-            if(order == "author")
-            {
-                return books.OrderBy(x => x.Author);
-            }
+                var specification = new Books.BookListOrderByTitle();
 
-            return books;
+                var books = await _bookRepository.GetListBySpecAsync(specification);
+
+                var orderBooks = new List<OrderBookDTO>();
+
+                _mapper.Map(books, orderBooks);
+
+                return orderBooks;
+            }
+            else
+            {
+                var specification = new Books.BookListOrderByAuthor();
+
+                var books = await _bookRepository.GetListBySpecAsync(specification);
+
+                var orderBooks = new List<OrderBookDTO>();
+
+                _mapper.Map(books, orderBooks);
+
+                return orderBooks;
+            }
         }
 
         public async Task<BookDTO> GetBookByIdAsync(int id)
@@ -165,7 +168,7 @@ namespace Radency.Core.Services
 
             _mapper.Map(books, orderBooks);
 
-            return orderBooks;
+            return orderBooks.OrderByDescending(x => x.Raiting);
         }
     }
 }
