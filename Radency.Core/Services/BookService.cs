@@ -5,6 +5,7 @@ using Radency.Contracts.Data.Entities.BookEntity;
 using Radency.Contracts.Data.Entities.RaitingEntity;
 using Radency.Contracts.Data.Entities.ReviewEntity;
 using Radency.Contracts.DTO;
+using Radency.Contracts.Queries;
 using Radency.Contracts.Services;
 
 namespace Radency.Core.Services
@@ -96,11 +97,11 @@ namespace Radency.Core.Services
             }
         }
 
-        public async Task DeleteBookAsync(string secretKey, int id)
+        public async Task DeleteBookAsync(QuerySecretKey secretKey, int id)
         {
             var key = _config["SecretKey"];
 
-            if(key.Equals(secretKey))
+            if(key.Equals(secretKey.Key))
             {
                 var book = await _bookRepository.GetByKeyAsync(id);
 
@@ -112,7 +113,7 @@ namespace Radency.Core.Services
             }
         }
 
-        public async Task<IEnumerable<OrderBookDTO>> GetAllBooks(string order)
+        public async Task<IEnumerable<OrderBookDTO>> GetAllBooks(QueryOrderBooks query)
         {
             var specification = new Books.BookList();
             var books = await _bookRepository.GetListBySpecAsync(specification);
@@ -121,7 +122,7 @@ namespace Radency.Core.Services
 
             _mapper.Map(books, orderBooks);
 
-            return OrderBooks(orderBooks, order);
+            return OrderBooks(orderBooks, query.Order);
         }
 
         private IEnumerable<OrderBookDTO> OrderBooks(IEnumerable<OrderBookDTO> books, string order)
@@ -155,7 +156,7 @@ namespace Radency.Core.Services
             return new BookDTO();
         }
 
-        public async Task<IEnumerable<OrderBookDTO>> GetRecommendedBooks(string genre)
+        public async Task<IEnumerable<OrderBookDTO>> GetRecommendedBooks(QueryBookGenre query)
         {
             var specification = new Books.RecommendedBooks();
             var books = await _bookRepository.GetListBySpecAsync(specification);

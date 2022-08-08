@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Radency.Contracts.DTO;
+using Radency.Contracts.Queries;
 using Radency.Contracts.Services;
 
 namespace Radency.WEB.Controllers
@@ -17,18 +18,18 @@ namespace Radency.WEB.Controllers
 
         [HttpGet]
         [Route("books")] // Get all books. Order by provided value (title or author)
-        public async Task<IActionResult> GetAllBooks([FromQuery] string order)
+        public async Task<IActionResult> GetAllBooks([FromQuery] QueryOrderBooks query)
         {
-            var result = await _bookService.GetAllBooks(order);
+            var result = await _bookService.GetAllBooks(query);
             return Ok(result);
         }
 
         [HttpGet]
         [Route("recommended")] // Get top 10 books with high rating and number of reviews greater than 10.
                                // You can filter books by specifying genre. Order by rating
-        public async Task<IActionResult> GetRecommendedBooks([FromQuery] string genre)
+        public async Task<IActionResult> GetRecommendedBooks([FromQuery] QueryBookGenre query)
         {
-            var result = await _bookService.GetRecommendedBooks(genre);
+            var result = await _bookService.GetRecommendedBooks(query);
             return Ok(result);
         }
 
@@ -44,7 +45,7 @@ namespace Radency.WEB.Controllers
         [HttpDelete]
         [Route("books/{id}")] // Delete a book using a secret key. Save the secret key in the config of your application.
                               // Compare this key with query param
-        public async Task<IActionResult> DeleteBook([FromQuery] string secret, int id)
+        public async Task<IActionResult> DeleteBook([FromQuery] QuerySecretKey secret, int id)
         {
             await _bookService.DeleteBookAsync(secret, id);
             return Ok();
