@@ -114,16 +114,17 @@ namespace Radency.Core.Services
 
         public async Task<IEnumerable<OrderBookDTO>> GetAllBooks(string order)
         {
-            var books = OrderBooks(await _bookRepository.GetAllAsync(), order);
+            var specification = new Books.BookList();
+            var books = await _bookRepository.GetListBySpecAsync(specification);
 
             var orderBooks = new List<OrderBookDTO>();
 
             _mapper.Map(books, orderBooks);
 
-            return orderBooks;
+            return OrderBooks(orderBooks, order);
         }
 
-        private IEnumerable<Book> OrderBooks(IEnumerable<Book> books, string order)
+        private IEnumerable<OrderBookDTO> OrderBooks(IEnumerable<OrderBookDTO> books, string order)
         {
             if(order == "title")
             {

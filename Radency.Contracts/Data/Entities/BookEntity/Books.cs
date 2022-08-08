@@ -14,5 +14,15 @@ namespace Radency.Contracts.Data.Entities.BookEntity
                     .Where(x => x.Id == bookId);
             }
         }
+
+        public class BookList : Specification<Book>
+        {
+            public BookList()
+            {
+                Query
+                    .Include(x => x.Reviews)
+                    .Include(x => x.Raitings);
+            }
+        }
     }
 }

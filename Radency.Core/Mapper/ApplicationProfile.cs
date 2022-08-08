@@ -23,7 +23,8 @@ namespace Radency.Core.Mapper
                 .ForMember(dest => dest.Content, act => act.MapFrom(src => src.Content))
                 .ForMember(dest => dest.Genve, act => act.MapFrom(src => src.Genre))
                 .ForMember(dest => dest.Author, act => act.MapFrom(src => src.Author))
-                .ForMember(dest => dest.Rating, act => act.MapFrom(src => src.Raitings.Average(x => x.Score)));
+                .ForMember(dest => dest.Rating, act => act.MapFrom(
+                    src => src.Raitings.Select(x => x.Score).DefaultIfEmpty(0).Average()));
 
             CreateMap<Review, ReviewDTO>()
                 .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id))
@@ -35,7 +36,8 @@ namespace Radency.Core.Mapper
                 .ForMember(dest => dest.Title, act => act.MapFrom(src => src.Title))
                 .ForMember(dest => dest.Author, act => act.MapFrom(src => src.Author))
                 .ForMember(dest => dest.ReviewsNumber, act => act.MapFrom(src => src.Reviews.Count))
-                .ForMember(dest => dest.Raiting, act => act.MapFrom(src => src.Raitings.Average(x => x.Score)));
+                .ForMember(dest => dest.Raiting, act => act.MapFrom(
+                    src => src.Raitings.Select(x => x.Score).DefaultIfEmpty(0).Average()));
 
             CreateMap<AddReviewDTO, Review>()
                 .ForMember(dest => dest.Message, act => act.MapFrom(src => src.Message))
