@@ -6,7 +6,7 @@ namespace Radency.Contracts.Services
     {
         Task<int> CreateOrUpdateBookAsync(CreateOrUpdateBookDTO model);
         Task<IEnumerable<OrderBookDTO>> GetAllBooks(string order);
-        Task DeleteBookAsync(int id);
+        Task DeleteBookAsync(string secretKey, int id);
         Task<BookDTO> GetBookByIdAsync(int id);
         Task<int> AddBookReview(int id, AddReviewDTO model);
         Task AddBookRate(int id, AddRaitingDTO model);

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Radency.Contracts.Data;
 using Radency.Contracts.Data.Entities.BookEntity;
 using Radency.Contracts.Data.Entities.RaitingEntity;
@@ -14,15 +15,19 @@ namespace Radency.Core.Services
         protected readonly IRepository<Review> _reviewRepository;
         protected readonly IRepository<Raiting> _raitingRepository;
         protected readonly IMapper _mapper;
+        protected readonly IConfiguration _config;
+
         public BookService(IRepository<Book> bookRepository, 
             IMapper mapper,
             IRepository<Review> reviewRepository,
-            IRepository<Raiting> raitingRepository)
+            IRepository<Raiting> raitingRepository,
+            IConfiguration config)
         {
             _bookRepository = bookRepository;
             _mapper = mapper;
             _reviewRepository = reviewRepository;
             _raitingRepository = raitingRepository;
+            _config = config;
         }
 
         public async Task AddBookRate(int id, AddRaitingDTO model)
@@ -91,32 +96,45 @@ namespace Radency.Core.Services
             }
         }
 
-        public async Task DeleteBookAsync(int id)
+        public async Task DeleteBookAsync(string secretKey, int id)
         {
-            var book = await _bookRepository.GetByKeyAsync(id);
+            var key = _config["SecretKey"];
 
-            if(book != null)
+            if(key.Equals(secretKey))
             {
-                await _bookRepository.DeleteAsync(book);
-                await _bookRepository.SaveChangesAsync();
+                var book = await _bookRepository.GetByKeyAsync(id);
+
+                if (book != null)
+                {
+                    await _bookRepository.DeleteAsync(book);
+                    await _bookRepository.SaveChangesAsync();
+                }
             }
         }
 
         public async Task<IEnumerable<OrderBookDTO>> GetAllBooks(string order)
         {
-            var books = await _bookRepository.GetAllAsync();
+            var books = OrderBooks(await _bookRepository.GetAllAsync(), order);
+
             var orderBooks = new List<OrderBookDTO>();
 
             _mapper.Map(books, orderBooks);
 
+            return orderBooks;
+        }
+
+        private IEnumerable<Book> OrderBooks(IEnumerable<Book> books, string order)
+        {
             if(order == "title")
             {
-                return orderBooks.OrderBy(x => x.Title);
+                return books.OrderBy(x => x.Title);
             }
-            else
+            if(order == "author")
             {
-                return orderBooks.OrderBy(x => x.Author);
+                return books.OrderBy(x => x.Author);
             }
+
+            return books;
         }
 
         public async Task<BookDTO> GetBookByIdAsync(int id)

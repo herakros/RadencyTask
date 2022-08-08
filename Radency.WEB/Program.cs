@@ -1,6 +1,5 @@
 using Radency.Core;
 using Radency.Infrastructure;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -44,9 +44,9 @@ namespace Radency.WEB.Controllers
         [HttpDelete]
         [Route("books/{id}")] // Delete a book using a secret key. Save the secret key in the config of your application.
                               // Compare this key with query param
-        public async Task<IActionResult> DeleteBook(int id)
+        public async Task<IActionResult> DeleteBook([FromQuery] string secret, int id)
         {
-            await _bookService.DeleteBookAsync(id);
+            await _bookService.DeleteBookAsync(secret, id);
             return Ok();
         }
 
