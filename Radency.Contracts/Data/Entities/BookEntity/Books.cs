@@ -24,5 +24,15 @@ namespace Radency.Contracts.Data.Entities.BookEntity
                     .Include(x => x.Raitings);
             }
         }
+
+        public class RecommendedBooks : Specification<Book>
+        {
+            public RecommendedBooks()
+            {
+                Query
+                    .Include(x => x.Reviews)
+                    .Include(x => x.Raitings);
+            }
+        }
     }
 }

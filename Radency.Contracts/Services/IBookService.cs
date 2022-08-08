@@ -10,5 +10,6 @@ namespace Radency.Contracts.Services
         Task<BookDTO> GetBookByIdAsync(int id);
         Task<int> AddBookReview(int id, AddReviewDTO model);
         Task AddBookRate(int id, AddRaitingDTO model);
+        Task<IEnumerable<OrderBookDTO>> GetRecommendedBooks(string genre);
     }
 }

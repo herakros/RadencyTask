@@ -28,8 +28,8 @@ namespace Radency.WEB.Controllers
                                // You can filter books by specifying genre. Order by rating
         public async Task<IActionResult> GetRecommendedBooks([FromQuery] string genre)
         {
-
-            return Ok();
+            var result = await _bookService.GetRecommendedBooks(genre);
+            return Ok(result);
         }
 
         [HttpGet]
@@ -68,7 +68,7 @@ namespace Radency.WEB.Controllers
 
         [HttpPut]
         [Route("books/{id}/rate")]
-        public async Task<IActionResult> ChangeBookRate(int id, [FromBody] AddRaitingDTO model)
+        public async Task<IActionResult> AddBookRate(int id, [FromBody] AddRaitingDTO model)
         {
             await _bookService.AddBookRate(id, model);
             return Ok();

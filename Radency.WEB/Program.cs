@@ -10,6 +10,7 @@ builder.Services.AddRepositories();
 builder.Services.AddDbContext(builder.Configuration.GetConnectionString("DefaultConnection"));
 builder.Services.AddServices();
 builder.Services.AddAutoMapper();
+builder.Services.AddFluentValidator();
 builder.Services.AddCors();
 builder.Services.AddMvcCore().AddRazorViewEngine();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

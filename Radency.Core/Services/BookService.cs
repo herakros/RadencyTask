@@ -154,5 +154,17 @@ namespace Radency.Core.Services
 
             return new BookDTO();
         }
+
+        public async Task<IEnumerable<OrderBookDTO>> GetRecommendedBooks(string genre)
+        {
+            var specification = new Books.RecommendedBooks();
+            var books = await _bookRepository.GetListBySpecAsync(specification);
+
+            var orderBooks = new List<OrderBookDTO>();
+
+            _mapper.Map(books, orderBooks);
+
+            return orderBooks;
+        }
     }
 }
