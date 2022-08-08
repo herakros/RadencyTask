@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpLogging;
 using Radency.Core;
 using Radency.Infrastructure;
 using Radency.WEB.Middleweres;
@@ -19,6 +20,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseHttpLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
