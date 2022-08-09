@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Book } from 'src/app/core/models/book';
+import { CreateOrUpdateBook } from 'src/app/core/models/createOrUpdateBook';
 import { BooksService } from 'src/app/core/services/books.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class EditBookComponent implements OnInit {
         this.bookId = Number(p.get('id'));
         if (this.bookId) {
           this.isEdit = true;
-          this.bookService.getSingle(this.bookId).subscribe((book: Book) => {
+          this.bookService.getSingle(this.bookId).subscribe((book: CreateOrUpdateBook) => {
             this.form.get('title').patchValue(book.title);
             this.form.get('cover').patchValue(book.cover);
             this.form.get('genre').patchValue(book.genre);
@@ -49,7 +49,7 @@ export class EditBookComponent implements OnInit {
   }
 
   save() {
-    let book = <Book>this.form.value;
+    let book = <CreateOrUpdateBook>this.form.value;
     if(this.isEdit) {
       book.id = this.bookId;
       this.bookService.add(book).subscribe(

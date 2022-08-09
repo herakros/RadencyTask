@@ -1,4 +1,4 @@
-export class Book{
+export class CreateOrUpdateBook{
     id: number;
     title: string;
     cover: string;
