@@ -172,7 +172,7 @@ namespace Radency.Core.Services
 
         public async Task<IEnumerable<OrderBookDTO>> GetRecommendedBooks(QueryBookGenre query)
         {
-            var specification = new Books.RecommendedBooks();
+            var specification = new Books.RecommendedBooks(query.Genre);
             var books = await _bookRepository.GetListBySpecAsync(specification);
 
             var orderBooks = new List<OrderBookDTO>();

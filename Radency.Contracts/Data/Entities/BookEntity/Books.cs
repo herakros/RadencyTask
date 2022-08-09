@@ -39,13 +39,14 @@ namespace Radency.Contracts.Data.Entities.BookEntity
 
         public class RecommendedBooks : Specification<Book>
         {
-            public RecommendedBooks()
+            public RecommendedBooks(string genre)
             {
                 Query
                     .Include(x => x.Reviews)
                     .Include(x => x.Raitings)
                     .Take(10)
-                    .Where(x => x.Reviews.Count > 10);
+                    .Where(x => x.Reviews.Count > 10)
+                    .Where(x => x.Genre == genre);
             }
         }
     }
