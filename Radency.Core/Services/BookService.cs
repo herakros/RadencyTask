@@ -72,9 +72,8 @@ namespace Radency.Core.Services
             _mapper.Map(model, review);
 
             await _reviewRepository.AddAsync(review);
-            await _reviewRepository.SaveChangesAsync();
 
-            return id;
+            return await _reviewRepository.SaveChangesAsync();
         }
 
         public async Task<int> CreateOrUpdateBookAsync(CreateOrUpdateBookDTO model)
@@ -86,9 +85,8 @@ namespace Radency.Core.Services
                 _mapper.Map(model, book);
 
                 await _bookRepository.UpdateAsync(book);
-                await _bookRepository.SaveChangesAsync();
 
-                return book.Id;
+                return await _bookRepository.SaveChangesAsync();
             }
             else
             {
@@ -97,9 +95,8 @@ namespace Radency.Core.Services
                 _mapper.Map(model, book);
 
                 await _bookRepository.AddAsync(book);
-                await _bookRepository.SaveChangesAsync();
 
-                return book.Id;
+                return await _bookRepository.SaveChangesAsync();
             }
         }
 
