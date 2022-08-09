@@ -7,7 +7,7 @@ import { EditBookComponent } from './presentation/components/edit-book/edit-book
 import { ViewBookComponent } from './presentation/components/view-book/view-book.component';
 
 const routes: Routes = [
-  { path: '', component: BooksPageComponent },
+  { path: 'test/', component: BooksPageComponent },
   { path: 'book/list', component:BookListComponent },
   { path: 'book/list/:id', component:BookListItemComponent },
   { path: 'book/edit/:id', component:EditBookComponent },

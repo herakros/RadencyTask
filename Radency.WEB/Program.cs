@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Radency.Core;
 using Radency.Infrastructure;
 using Radency.WEB.Middleweres;
@@ -16,6 +17,10 @@ builder.Services.AddCors();
 builder.Services.AddMvcCore().AddRazorViewEngine();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSpaStaticFiles(configuration =>
+{
+    configuration.RootPath = "ClientApp/dist";
+});
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -26,8 +31,6 @@ app.UseHttpLogging();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Radency.WebApi v1"));
 }
 
 app.UseStaticFiles();
@@ -50,6 +53,12 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
+});
+
+app.UseSpa(spa =>
+{
+    spa.Options.SourcePath = "ClientApp";
+    spa.UseAngularCliServer(npmScript: "start");
 });
 
 app.Run();

@@ -9,6 +9,8 @@ import { BookListItemComponent } from './presentation/components/book-list-item/
 import { BooksPageComponent } from './presentation/components/books-page/books-page.component';
 import { EditBookComponent } from './presentation/components/edit-book/edit-book.component';
 import { ViewBookComponent } from './presentation/components/view-book/view-book.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,10 @@ import { ViewBookComponent } from './presentation/components/view-book/view-book
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgbModule
   ],
   providers: [],
