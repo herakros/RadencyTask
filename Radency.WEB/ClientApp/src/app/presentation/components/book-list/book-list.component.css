@@ -43,3 +43,9 @@
     background-color: #fff;
     border-bottom: 1px solid #fff;
   }
+  .book-list{
+    overflow-y: auto;
+    padding: 0 15px 15px 0;
+    width: 100%;
+    height: 320px;
+}

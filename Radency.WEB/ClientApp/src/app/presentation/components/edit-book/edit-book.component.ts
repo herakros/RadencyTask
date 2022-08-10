@@ -57,7 +57,7 @@ export class EditBookComponent implements OnInit {
       book.id = this.bookId;
       this.bookService.add(book).subscribe(
         res => {
-          this.router.navigate(['/']);
+          this.clearForm();
         },
         err => {
           console.log(err);
@@ -66,7 +66,7 @@ export class EditBookComponent implements OnInit {
     } else {
       this.bookService.add(book).subscribe(
         res => {
-          this.router.navigate(['/']);
+          this.clearForm();
         },
         err => {
           console.log(err);

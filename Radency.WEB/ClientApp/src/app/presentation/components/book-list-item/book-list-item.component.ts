@@ -20,7 +20,7 @@ export class BookListItemComponent implements OnInit {
   viewBook() {
     let dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
-      bookId: this.book.id
+      bookId: 1
     };
 
     this.dialog.open(ViewBookComponent, dialogConfig);

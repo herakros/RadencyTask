@@ -9,3 +9,8 @@
     padding-right: 5px;
     border-top: 1px solid #3b394a;
 }
+.wrap-text{
+    word-wrap: break-word;
+    font-size: large;
+    color: grey;
+}

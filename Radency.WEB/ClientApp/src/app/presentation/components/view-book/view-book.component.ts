@@ -17,14 +17,12 @@ export class ViewBookComponent implements OnInit {
     private dialogRef: MatDialogRef<ViewBookComponent>,
     @Inject(MAT_DIALOG_DATA) data: any) {
       this.bookId = data.bookId;
-      console.log(this.bookId);
+      this.bookService.getSingle(this.bookId).subscribe((data: BookView) => {
+        this.book = data;
+      })
     }
 
   ngOnInit() {
-    this.bookService.getSingle(this.bookId).subscribe((data: BookView) => {
-      this.book = data;
-      console.log(this.book);
-    })
   }
 
   close(){

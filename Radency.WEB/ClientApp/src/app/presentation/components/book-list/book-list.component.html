@@ -4,7 +4,7 @@
   <input type="radio" name="tab-btn" id="tab-btn-2" value="">
   <label for="tab-btn-2" (click)="loadRecommendedBooks()">Recommended</label>
   <div id="content-1">
-    <div *ngFor="let book of books">
+    <div *ngFor="let book of books" class="book-list">
       <app-book-list-item>{{book}}</app-book-list-item>
     </div>
   </div>
