@@ -1,8 +1,8 @@
-<div class="tabs">
-  <input type="radio" name="tab-btn" id="tab-btn-1" value="" checked>
-  <label for="tab-btn-1">All</label>
+<div class="tabs" style="margin: 10px;">
+  <input type="radio" name="tab-btn" id="tab-btn-1" value="">
+  <label for="tab-btn-1" (click)="loadAllBooks()">All</label>
   <input type="radio" name="tab-btn" id="tab-btn-2" value="">
-  <label for="tab-btn-2">Recommended</label>
+  <label for="tab-btn-2" (click)="loadRecommendedBooks()">Recommended</label>
   <div id="content-1">
     <div *ngFor="let book of books">
       <app-book-list-item>{{book}}</app-book-list-item>

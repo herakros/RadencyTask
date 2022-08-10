@@ -1,7 +1,4 @@
-<form [formGroup]="form">
-  <div *ngIf="isErrorResponse" class="alert alert-danger" role="alert">
-    {{error}}
-  </div>
+<form [formGroup]="form" style="margin: 10px;">
   <table class="table">
     <tr>
       <td>
@@ -17,7 +14,7 @@
           <td>
             <div class="form-group">
               <label for="cover">Cover</label>
-              <input type="file" class="form-control" formControlName="cover" />
+              <input type="file" class="form-control" (change)="onFileSelected($event)" formControlName="cover" />
             </div>
           </td>
         </tr>
@@ -47,7 +44,7 @@
     </tr>
   </table>
   <div class="box">
-    <button class="btn btn-primary item" [disabled]="form.invalid" type="button" (click)="save()">Add</button>
+    <button class="btn btn-primary item" [disabled]="form.invalid" type="button" (click)="save()">{{buttonText}}</button>
     <button class="btn btn-secondary item" (click)="clearForm()">Clear</button>
   </div>
 </form>

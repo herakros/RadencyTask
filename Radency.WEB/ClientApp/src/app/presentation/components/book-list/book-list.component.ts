@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { OrderBook } from 'src/app/core/models/orderBooks';
 import { OrderByBook } from 'src/app/core/models/queries/orderByBook';
 import { OrderByGenre } from 'src/app/core/models/queries/orderByGenre';
@@ -17,13 +17,17 @@ export class BookListComponent implements OnInit {
   constructor(private bookService: BooksService) { }
 
   ngOnInit() {
+  }
+
+  loadAllBooks(){
     let query = new OrderByBook();
     query.order = 'title';
 
     this.bookService.getAllBooks(query).subscribe((data: OrderBook[]) => {
       this.books = data;
     });
-
+  }
+  loadRecommendedBooks(){
     let queryRecommended = new OrderByGenre();
     queryRecommended.gerne = '';
 
@@ -31,5 +35,4 @@ export class BookListComponent implements OnInit {
       this.recommendedBooks = data;
     });
   }
-
 }

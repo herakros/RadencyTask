@@ -15,13 +15,12 @@ export class BookListItemComponent implements OnInit {
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
-    console.log(this.book);
   }
 
   viewBook() {
     let dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
-      bookId: 5
+      bookId: this.book.id
     };
 
     this.dialog.open(ViewBookComponent, dialogConfig);

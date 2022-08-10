@@ -15,7 +15,7 @@ export class ViewBookComponent implements OnInit {
 
   constructor(private bookService: BooksService,
     private dialogRef: MatDialogRef<ViewBookComponent>,
-    @Inject(MAT_DIALOG_DATA) data) {
+    @Inject(MAT_DIALOG_DATA) data: any) {
       this.bookId = data.bookId;
       console.log(this.bookId);
     }
@@ -30,5 +30,4 @@ export class ViewBookComponent implements OnInit {
   close(){
     this.dialogRef.close();
   }
-
 }
