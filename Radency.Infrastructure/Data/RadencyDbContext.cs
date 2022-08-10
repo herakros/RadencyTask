@@ -2,6 +2,7 @@
 using Radency.Contracts.Data.Entities.BookEntity;
 using Radency.Contracts.Data.Entities.RaitingEntity;
 using Radency.Contracts.Data.Entities.ReviewEntity;
+using Radency.Infrastructure.Data.SeedData;
 
 namespace Radency.Infrastructure.Data
 {
@@ -20,7 +21,7 @@ namespace Radency.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new BookConfiguration());
             modelBuilder.ApplyConfiguration(new RaitingConfiguration());
             modelBuilder.ApplyConfiguration(new ReviewConfiguration());
-
+            modelBuilder.Seed();
         }
 
         public DbSet<Book> Books { get; set; }

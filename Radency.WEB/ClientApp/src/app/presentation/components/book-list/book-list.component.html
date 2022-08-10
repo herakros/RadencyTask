@@ -1,0 +1,16 @@
+<div class="tabs" style="margin: 10px;">
+  <input type="radio" name="tab-btn" id="tab-btn-1" value="">
+  <label for="tab-btn-1" (click)="loadAllBooks()">All</label>
+  <input type="radio" name="tab-btn" id="tab-btn-2" value="">
+  <label for="tab-btn-2" (click)="loadRecommendedBooks()">Recommended</label>
+  <div id="content-1">
+    <div *ngFor="let book of books" class="book-list">
+      <app-book-list-item>{{book}}</app-book-list-item>
+    </div>
+  </div>
+  <div id="content-2">
+    <div *ngFor="let recommendedBook of recommendedBooks">
+      <app-book-list-item>{{recommendedBook}}</app-book-list-item>
+    </div>
+  </div>
+</div>
