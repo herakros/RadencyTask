@@ -51,3 +51,4 @@ import { BookView } from "../models/bookView";
       return this.http.put(`${bookServiceUrl}books/${bookId}/rate`, rate);
     }
   }
+  
