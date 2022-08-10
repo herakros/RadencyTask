@@ -71,4 +71,8 @@ export class EditBookComponent implements OnInit {
       )
     }
   }
+
+  clearForm() {
+    this.form.reset();
+  }
 }

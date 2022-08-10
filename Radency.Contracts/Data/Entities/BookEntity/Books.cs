@@ -41,12 +41,23 @@ namespace Radency.Contracts.Data.Entities.BookEntity
         {
             public RecommendedBooks(string genre)
             {
-                Query
-                    .Include(x => x.Reviews)
-                    .Include(x => x.Raitings)
-                    .Take(10)
-                    .Where(x => x.Reviews.Count > 10)
-                    .Where(x => x.Genre == genre);
+                if(genre != null)
+                {
+                    Query
+                        .Include(x => x.Reviews)
+                        .Include(x => x.Raitings)
+                        .Take(10)
+                        .Where(x => x.Reviews.Count > 10)
+                        .Where(x => x.Genre == genre);
+                }
+                else
+                {
+                    Query
+                        .Include(x => x.Reviews)
+                        .Include(x => x.Raitings)
+                        .Take(10)
+                        .Where(x => x.Reviews.Count > 10);
+                }
             }
         }
     }

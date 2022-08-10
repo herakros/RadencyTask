@@ -11,6 +11,9 @@ import { EditBookComponent } from './presentation/components/edit-book/edit-book
 import { ViewBookComponent } from './presentation/components/view-book/view-book.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BooksService } from './core/services/books.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,12 +27,15 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [BooksService],
+  bootstrap: [AppComponent],
+  entryComponents: [ViewBookComponent]
 })
 export class AppModule { }

@@ -1,0 +1,11 @@
+.book-box{
+    width: 100%;
+    background-color: #F5F5F5;
+}
+.book-info{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-top: 1px solid #3b394a;
+}

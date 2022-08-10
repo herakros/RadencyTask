@@ -7,6 +7,9 @@ import { AddBookRating } from "../models/addBookRating";
 import { OrderByBook } from "../models/queries/orderByBook";
 import { OrderByGenre } from "../models/queries/orderByGenre";
 import { SecretKey } from "../models/queries/secretKey";
+import { OrderBook } from "../models/orderBooks";
+import { Observable } from "rxjs";
+import { BookView } from "../models/bookView";
 
 @Injectable({
     providedIn: 'root'
@@ -18,20 +21,20 @@ import { SecretKey } from "../models/queries/secretKey";
         return this.http.post(`${bookServiceUrl}books/save`, book);
     }
 
-    getSingle(bookId: number) {
-        return this.http.get(`${bookServiceUrl}books/${bookId}`);
+    getSingle(bookId: number) : Observable<BookView> {
+        return this.http.get<BookView>(`${bookServiceUrl}books/${bookId}`);
     }
 
-    getAllBooks(query: OrderByBook) {
+    getAllBooks(query: OrderByBook) : Observable<OrderBook[]>{
       let params = new HttpParams().set('Order', query.order);
 
-      return this.http.get<OrderByBook>(`${bookServiceUrl}books`, {params});
+      return this.http.get<OrderBook[]>(`${bookServiceUrl}books`, {params});
     }
 
-    getRecommendedBooks(query: OrderByGenre) {
+    getRecommendedBooks(query: OrderByGenre) : Observable<OrderBook[]>{
       let params = new HttpParams().set('Genre', query.gerne);
 
-      return this.http.get<OrderByBook>(`${bookServiceUrl}recommended`, {params});
+      return this.http.get<OrderBook[]>(`${bookServiceUrl}recommended`, {params});
     }
 
     deleteBook(bookId: number, secretKey: SecretKey) {

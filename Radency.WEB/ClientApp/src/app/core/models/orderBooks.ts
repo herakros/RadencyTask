@@ -1,4 +1,4 @@
-export class OrderBook {
+export interface OrderBook {
     id: number;
     title: string;
     author: string;

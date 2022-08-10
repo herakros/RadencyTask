@@ -1,3 +1,16 @@
-<p>
-  book-list works!
-</p>
+<div class="tabs">
+  <input type="radio" name="tab-btn" id="tab-btn-1" value="" checked>
+  <label for="tab-btn-1">All</label>
+  <input type="radio" name="tab-btn" id="tab-btn-2" value="">
+  <label for="tab-btn-2">Recommended</label>
+  <div id="content-1">
+    <div *ngFor="let book of books">
+      <app-book-list-item>{{book}}</app-book-list-item>
+    </div>
+  </div>
+  <div id="content-2">
+    <div *ngFor="let recommendedBook of recommendedBooks">
+      <app-book-list-item>{{recommendedBook}}</app-book-list-item>
+    </div>
+  </div>
+</div>

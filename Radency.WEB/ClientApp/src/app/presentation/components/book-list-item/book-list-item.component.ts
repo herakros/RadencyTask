@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { OrderBook } from 'src/app/core/models/orderBooks';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ViewBookComponent } from '../view-book/view-book.component';
 
 @Component({
   selector: 'app-book-list-item',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookListItemComponent implements OnInit {
 
-  constructor() { }
+  @Input() public book: OrderBook;
+
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
+    console.log(this.book);
   }
 
+  viewBook() {
+    let dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      bookId: 5
+    };
+
+    this.dialog.open(ViewBookComponent, dialogConfig);
+  }
 }
