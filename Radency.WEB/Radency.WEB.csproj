@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Radency.Infrastructure\Radency.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

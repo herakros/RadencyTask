@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { OrderBook } from 'src/app/core/models/orderBooks';
 import { OrderByBook } from 'src/app/core/models/queries/orderByBook';
 import { OrderByGenre } from 'src/app/core/models/queries/orderByGenre';
@@ -11,8 +11,8 @@ import { BooksService } from 'src/app/core/services/books.service';
 })
 export class BookListComponent implements OnInit {
 
-  books: OrderBook[];
-  recommendedBooks: OrderBook[];
+  @Output() books: OrderBook[];
+  @Output() recommendedBooks: OrderBook[];
 
   constructor(private bookService: BooksService) { }
 
